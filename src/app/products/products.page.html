@@ -11,7 +11,44 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">products</ion-title>
+      <ion-title size="large">Produk</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Search bar -->
+  <ion-list lines="full">
+    <ion-item>
+      <ion-input labelPlacement="floating" (keyup)="searchProducts()" label="Cari produk:"
+        [(ngModel)]="keywordSearch"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <!-- Result bar -->
+  <ion-accordion-group expand="inset" *ngFor="let p of productList">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="primary">
+        <ion-label>{{ p.name }}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+            <ion-img src="{{p.url}}" style="height: 360px;"></ion-img>
+          </ion-item>
+          <ion-item>
+            {{ p.description }}
+          </ion-item>
+          <ion-item>
+            Harga Jual: {{ p.sale_price }}
+          </ion-item>
+          <ion-item>
+            Stok: {{ p.stock }}
+          </ion-item>
+
+          <ion-button routerLink="details/{{p.id_product}}">See Details</ion-button>
+          <ion-button color="danger">[TO DO] Add to Card</ion-button>
+
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>

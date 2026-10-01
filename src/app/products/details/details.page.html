@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Detail {{display_product.name}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-card>
+      <img src="{{display_product.url}}" style="height: 480px;"/>
+      <ion-card-header>
+        <ion-card-title>{{display_product.name}}</ion-card-title>
+        <ion-card-subtitle>{{display_product.category}}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{display_product.description}}<br>
+        Stok: {{display_product.stock}}<br>
+        Harga beli: Rp{{display_product.purchase_price}}<br>
+        Harga jual: Rp{{display_product.sale_price}}<br>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>
