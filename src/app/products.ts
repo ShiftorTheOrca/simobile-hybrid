@@ -161,15 +161,14 @@ export class Products {
     }
     kurangiStok(p_id:string,jumlah:number) { 
         const index = this.products.findIndex(p => p.id_product == p_id);
-        if (index == -1) return false; // id tidak ditemukan
-        this.products[index].stock -= jumlah;
-        return true;
+        if (index != -1)
+            this.products[index].stock -= jumlah;
+        
     }
     tambahStok(p_id:string,jumlah:number) { 
         const index = this.products.findIndex(p => p.id_product == p_id);
-        if (index == -1) return false; // id tidak ditemukan
-        this.products[index].stock += jumlah;
-        return true;
+        if (index != -1)
+            this.products[index].stock += jumlah;
     }
 
 }
