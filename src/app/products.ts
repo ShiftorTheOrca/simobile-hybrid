@@ -5,11 +5,14 @@ export class Products {
     // TODO: Steve, ak sementara ws buat iki buat ngetes real-time search e
     // TODO: Kalo ada perubahan, tolong di-sync mbe search e
 
+    // TODO Steve: kategori tak ganti jadi makanan, minuman, sama dessert
+    // sama kamu mau nama service ne kene pake inggris atau indo
+
     products = [
         {
             id_product: "1",
             name: "Banoffee Original",
-            category: "category_1",
+            category: "dessert",
             description: "ini coba nulis deskripsi sg ga terlalu panjang.",
             purchase_price: 12000,
             sale_price: 30000,
@@ -19,7 +22,7 @@ export class Products {
         {
             id_product: "2",
             name: "Banoffee Oreo",
-            category: "category_1",
+            category: "dessert",
             description: "deskripsi lagi sg rodok lebih panjang dari sebelum e, tapi ak gatau mau nulis apa. ",
             purchase_price: 15000,
             sale_price: 32000,
@@ -29,7 +32,7 @@ export class Products {
         {
             id_product: "3",
             name: "Banoffee Extra Coffee",
-            category: "category_1",
+            category: "dessert",
             description: "jadi ceritanya ini harus e mau nyoba nulis deskripsi (lagi) sg paling panjang. Masalah e, ak ga pinter dalam ngarang sesuatu sg panjang (see more: nilai KBI-ku C dengan NA 59). Jadi aku nulis tulisan rodok gblg kek gini biar panjang. ",
             purchase_price: 13000,
             sale_price: 31000,
@@ -39,7 +42,7 @@ export class Products {
         {
             id_product: "4",
             name: "Ayam Geprek",
-            category: "category_2",
+            category: "makanan",
             description: "Geprek'e Marita oenak tpi skrg mahal",
             purchase_price: 9000,
             sale_price: 13000,
@@ -49,7 +52,7 @@ export class Products {
         {
             id_product: "5",
             name: "Cumi Hytam Pak Kris",
-            category: "category_2",
+            category: "makanan",
             description: "ea beli film bajakan ya?",
             purchase_price: 12000,
             sale_price: 15000,
@@ -59,7 +62,7 @@ export class Products {
         {
             id_product: "6",
             name: "Nasi Putih",
-            category: "category_3",
+            category: "makanan",
             description: "niSi piTiH",
             purchase_price: 1000,
             sale_price: 2000,
@@ -69,7 +72,7 @@ export class Products {
         {
             id_product: "7",
             name: "Rendang",
-            category: "category_2",
+            category: "makanan",
             description: "gnadneR",
             purchase_price: 30000,
             sale_price: 50000,
@@ -79,14 +82,89 @@ export class Products {
         {
             id_product: "8",
             name: "Strawfee",
-            category: "category_1",
+            category: "dessert",
             description: "ze forbiden straufi",
             purchase_price: 25000,
             sale_price: 30000,
             stock: 5,
             url: "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png",
         },
+        {
+            id_product: "9",
+            name: "teh",
+            category: "minuman",
+            description: "teh",
+            purchase_price: 5000,
+            sale_price: 10000,
+            stock: 70,
+            url: "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png",
+
+        },
+        {
+            id_product: "10",
+            name: "kopi",
+            category: "minuman",
+            description: "banoffee gapake pisang, karamel, regal, tapi ditambahin air",
+            purchase_price: 5670,
+            sale_price: 12670,
+            stock: 67, //awokawok
+            url: "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png",
+
+        }
+
 
         // Tambahi lagi sampe minim 10
+        // ws 10, info lek ada seng mau diganti
     ];
+    placeholder = "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png"
+    addProduct(p_id: string, p_name: string, p_category: string,
+        p_description: string, p_buy: number, p_price: number, p_stock: number, p_url: string) {
+            if (p_url.trim() !== '') {
+                p_url = p_url.trim();
+            } else {
+                p_url = this.placeholder;
+            }
+            this.products.push({
+            id_product: p_id,
+            name: p_name,
+            category: p_category,
+            description: p_description,
+            purchase_price: p_buy,
+            sale_price: p_price,
+            stock: p_stock,
+            url: p_url 
+        })
+    }
+    editProduct(p_id: string, p_name: string, p_category: string,
+        p_description: string, p_buy: number, p_price: number, p_stock: number, p_url: string) {
+
+        const index = this.products.findIndex(p => p.id_product == p_id);
+        if (index == -1) return false; // id tidak ditemukan
+
+        if (p_url.trim() !== '') {
+                p_url = p_url.trim();
+            } else {
+                p_url = this.placeholder;
+            }
+
+        this.products[index] = {
+            id_product: p_id,
+            name: p_name,
+            category: p_category,
+            description: p_description,
+            purchase_price: p_buy,
+            sale_price: p_price,
+            stock: p_stock,
+            url: p_url
+        };
+        return true;
+    }
+    kurangiStok(p_id:string,jumlah:number) {
+
+        const index = this.products.findIndex(p => p.id_product == p_id);
+        if (index == -1) return false; // id tidak ditemukan
+        this.products[index].stock -= jumlah;
+        return true;
+    }
+
 }
