@@ -159,11 +159,16 @@ export class Products {
         };
         return true;
     }
-    kurangiStok(p_id:string,jumlah:number) {
-
+    kurangiStok(p_id:string,jumlah:number) { 
         const index = this.products.findIndex(p => p.id_product == p_id);
         if (index == -1) return false; // id tidak ditemukan
         this.products[index].stock -= jumlah;
+        return true;
+    }
+    tambahStok(p_id:string,jumlah:number) { 
+        const index = this.products.findIndex(p => p.id_product == p_id);
+        if (index == -1) return false; // id tidak ditemukan
+        this.products[index].stock += jumlah;
         return true;
     }
 
