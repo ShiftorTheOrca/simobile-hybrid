@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { Products } from '../products';
+import { Transaksi } from '../transaksi';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
-  constructor() {}
+  constructor(private productService: Products, private transaksiService: Transaksi) {}
+  totalProduk = this.productService.products.length;
+  totalTransaksiToday = this.transaksiService.totalTransaksiToday();
+  namaProdukTerlaris = this.transaksiService.produkTerlaris().name;
+
 
 }

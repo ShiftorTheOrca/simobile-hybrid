@@ -1,8 +1,8 @@
-import { Service } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Products } from './products';
 @Service()
 export class Keranjang {
-    constructor(private productService: Products) {}
+    private productService = inject(Products);
     cart = [
     {
         id_product: "1",
