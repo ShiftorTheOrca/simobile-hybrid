@@ -16,12 +16,12 @@ export class DetailsPage implements OnInit {
   constructor(private route: ActivatedRoute, private obj_product: Products) { }
 
   ngOnInit() {
-    this.product_list = this.obj_product.products
-    this.route.params.subscribe(params =>
-      this.id = params['id_product']
-    )
+    this.product_list = this.obj_product.products;
+    this.route.params.subscribe(params => {
+      this.id = params['id_product'];
 
-    // dari AI
-    this.display_product = this.product_list.find(product => product.id_product == this.id);
+      // dari AI
+      this.display_product = this.product_list.find(product => product.id_product == this.id);
+    });
   }
 }

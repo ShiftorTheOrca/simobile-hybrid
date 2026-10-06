@@ -1,0 +1,90 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/products"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isEdit ? 'Edit Produk' : 'Tambah Produk' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="full">
+    <!-- Nama Produk -->
+    <ion-item>
+      <ion-input label="Nama Produk *" labelPlacement="stacked" placeholder="Masukkan nama produk" [(ngModel)]="name"
+        (keyup)="checkName()"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="errorName">
+      <p style="padding-left: 16px; margin: 4px 0;"><small>{{ errorName }}</small></p>
+    </ion-text>
+
+    <!-- Kategori Produk -->
+    <ion-item>
+      <ion-select label="Kategori Produk" labelPlacement="stacked" [(ngModel)]="category">
+        <ion-select-option value="makanan">Makanan</ion-select-option>
+        <ion-select-option value="minuman">Minuman</ion-select-option>
+        <ion-select-option value="dessert">Dessert</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Harga Beli -->
+    <ion-item>
+      <ion-input type="number" min="1" inputmode="numeric" label="Harga Beli (Rp) *" labelPlacement="stacked" placeholder="Contoh: 15000"
+        [(ngModel)]="purchase_price" (keyup)="checkPurchasePrice()"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="errorPurchasePrice">
+      <p style="padding-left: 16px; margin: 4px 0;"><small>{{ errorPurchasePrice }}</small></p>
+    </ion-text>
+
+    <!-- Harga Jual -->
+    <ion-item>
+      <ion-input type="number" min="1" inputmode="numeric" label="Harga Jual (Rp) *" labelPlacement="stacked" placeholder="Contoh: 25000"
+        [(ngModel)]="sale_price" (keyup)="checkSalePrice()"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="errorSalePrice">
+      <p style="padding-left: 16px; margin: 4px 0;"><small>{{ errorSalePrice }}</small></p>
+    </ion-text>
+
+    <!-- Stok Produk -->
+    <ion-item>
+      <ion-input type="number" min="0" inputmode="numeric" label="Stok Produk *" labelPlacement="stacked" placeholder="Contoh: 10"
+        [(ngModel)]="stock" (keyup)="checkStock()"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="errorStock">
+      <p style="padding-left: 16px; margin: 4px 0;"><small>{{ errorStock }}</small></p>
+    </ion-text>
+
+    <!-- Deskripsi Produk -->
+    <ion-item>
+      <ion-textarea label="Deskripsi Produk" labelPlacement="stacked" placeholder="Tuliskan keterangan produk..."
+        [autoGrow]="true" rows="3" [(ngModel)]="description"></ion-textarea>
+    </ion-item>
+
+    <!-- URL Foto Produk -->
+    <ion-item>
+      <ion-input type="url" label="URL Foto Produk" labelPlacement="stacked" placeholder="https://example.com/foto.jpg"
+        [(ngModel)]="url"></ion-input>
+    </ion-item>
+
+    <!-- Preview Foto jika terisi URL valid -->
+    <div style="text-align: center; padding: 12px;"
+      *ngIf="url && (url.startsWith('http://') || url.startsWith('https://'))">
+      <ion-text color="medium">
+        <p><small>Preview Foto Produk</small></p>
+      </ion-text>
+      <ion-img [src]="url" style="max-height: 150px; border-radius: 8px; margin: 0 auto;"></ion-img>
+    </div>
+  </ion-list>
+
+  <!-- Tombol Simpan -->
+  <div class="ion-padding-top">
+    <ion-button expand="block" (click)="saveProduct()">
+      {{ isEdit ? 'Simpan Perubahan' : 'Tambah Produk' }}
+    </ion-button>
+  </div>
+
+  <!-- Alert Notifikasi Berhasil -->
+  <ion-alert [isOpen]="isAlertOpen" header="Informasi"
+    [message]="isEdit ? 'Data berhasil diubah!' : 'Data berhasil ditambahkan!'" [buttons]="alertButtons"
+    (didDismiss)="onAlertDismiss()"></ion-alert>
+</ion-content>
