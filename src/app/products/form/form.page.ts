@@ -44,7 +44,8 @@ export class FormPage implements OnInit {
       // Jika ada id_product di URL, berarti mode edit
       if (this.id_product) {
         this.isEdit = true;
-        // Menggunakan perulangan for biasa sesuai materi kuliah
+
+        // Cari produk berdasarkan ID, lalu load data dalam form edit
         for (let p of this.objProduct.products) {
           if (p.id_product == this.id_product) {
             this.name = p.name;
@@ -61,7 +62,7 @@ export class FormPage implements OnInit {
     });
   }
 
-  // Fungsi validasi saat user mengetik (keyup)
+  // Fungsi validasi saat user mengetik
   checkName() {
     if (!this.name || this.name.trim() == '') {
       this.errorName = 'Nama produk wajib diisi.';
@@ -112,6 +113,11 @@ export class FormPage implements OnInit {
       return;
     }
 
+    // Jika URL foto kosong, gunakan gambar placeholder default
+    const fotoUrl = (this.url && this.url.trim() !== '') 
+      ? this.url.trim() 
+      : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png';
+
     // Simpan ke service
     if (this.isEdit) {
       this.objProduct.editProduct(
@@ -122,7 +128,7 @@ export class FormPage implements OnInit {
         this.purchase_price!,
         this.sale_price!,
         this.stock!,
-        this.url
+        fotoUrl
       );
     } else {
       const newId = (this.objProduct.products.length + 1).toString();
@@ -134,7 +140,7 @@ export class FormPage implements OnInit {
         this.purchase_price!,
         this.sale_price!,
         this.stock!,
-        this.url
+        fotoUrl
       );
     }
 

@@ -1,2 +1,35 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// Custom Theme (Hijau & Kuning)
+:root {
+  --ion-color-primary: #107c41;
+  --ion-color-primary-rgb: 16, 124, 65;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #0e6d39;
+  --ion-color-primary-tint: #288954;
+
+  --ion-color-secondary: #f59e0b;
+  --ion-color-secondary-rgb: 245, 158, 11;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-contrast-rgb: 0, 0, 0;
+  --ion-color-secondary-shade: #d88b0a;
+  --ion-color-secondary-tint: #f6a823;
+
+}
+
+/* Penyesuaian tema saat mode gelap aktif */
+.ion-palette-dark,
+body.dark {
+  --ion-color-primary: #16a34a;
+  --ion-color-primary-rgb: 22, 163, 74;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #139041;
+  --ion-color-primary-tint: #2dac5c;
+
+  --ion-color-secondary: #fbbf24;
+  --ion-color-secondary-rgb: 251, 191, 36;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-contrast-rgb: 0, 0, 0;
+  --ion-color-secondary-shade: #dda820;
+  --ion-color-secondary-tint: #fcc53a;
+}

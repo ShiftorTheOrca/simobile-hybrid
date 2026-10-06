@@ -29,8 +29,8 @@
 
     <!-- Harga Beli -->
     <ion-item>
-      <ion-input type="number" min="1" inputmode="numeric" label="Harga Beli (Rp) *" labelPlacement="stacked" placeholder="Contoh: 15000"
-        [(ngModel)]="purchase_price" (keyup)="checkPurchasePrice()"></ion-input>
+      <ion-input type="number" min="1" inputmode="numeric" label="Harga Beli (Rp) *" labelPlacement="stacked"
+        placeholder="Contoh: 15000" [(ngModel)]="purchase_price" (keyup)="checkPurchasePrice()"></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="errorPurchasePrice">
       <p style="padding-left: 16px; margin: 4px 0;"><small>{{ errorPurchasePrice }}</small></p>
@@ -38,8 +38,8 @@
 
     <!-- Harga Jual -->
     <ion-item>
-      <ion-input type="number" min="1" inputmode="numeric" label="Harga Jual (Rp) *" labelPlacement="stacked" placeholder="Contoh: 25000"
-        [(ngModel)]="sale_price" (keyup)="checkSalePrice()"></ion-input>
+      <ion-input type="number" min="1" inputmode="numeric" label="Harga Jual (Rp) *" labelPlacement="stacked"
+        placeholder="Contoh: 25000" [(ngModel)]="sale_price" (keyup)="checkSalePrice()"></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="errorSalePrice">
       <p style="padding-left: 16px; margin: 4px 0;"><small>{{ errorSalePrice }}</small></p>
@@ -47,8 +47,8 @@
 
     <!-- Stok Produk -->
     <ion-item>
-      <ion-input type="number" min="0" inputmode="numeric" label="Stok Produk *" labelPlacement="stacked" placeholder="Contoh: 10"
-        [(ngModel)]="stock" (keyup)="checkStock()"></ion-input>
+      <ion-input type="number" min="0" inputmode="numeric" label="Stok Produk *" labelPlacement="stacked"
+        placeholder="Contoh: 10" [(ngModel)]="stock" (keyup)="checkStock()"></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="errorStock">
       <p style="padding-left: 16px; margin: 4px 0;"><small>{{ errorStock }}</small></p>
@@ -65,15 +65,6 @@
       <ion-input type="url" label="URL Foto Produk" labelPlacement="stacked" placeholder="https://example.com/foto.jpg"
         [(ngModel)]="url"></ion-input>
     </ion-item>
-
-    <!-- Preview Foto jika terisi URL valid -->
-    <div style="text-align: center; padding: 12px;"
-      *ngIf="url && (url.startsWith('http://') || url.startsWith('https://'))">
-      <ion-text color="medium">
-        <p><small>Preview Foto Produk</small></p>
-      </ion-text>
-      <ion-img [src]="url" style="max-height: 150px; border-radius: 8px; margin: 0 auto;"></ion-img>
-    </div>
   </ion-list>
 
   <!-- Tombol Simpan -->
