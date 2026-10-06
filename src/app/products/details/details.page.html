@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title></ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/products"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Produk</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,7 +15,7 @@
   </ion-header>
 
   <ion-list>
-    <ion-card>
+    <ion-card id="detailCard">
       <img src="{{display_product.url}}" style="height: 480px;" />
       <ion-card-header>
         <ion-card-title>{{display_product.name}}</ion-card-title>

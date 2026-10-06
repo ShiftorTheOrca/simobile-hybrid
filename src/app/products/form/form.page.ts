@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AnimationController } from '@ionic/angular';
 import { Products } from '../../products';
 
 @Component({
@@ -34,8 +35,30 @@ export class FormPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private objProduct: Products
+    private objProduct: Products,
+    private animationCtrl: AnimationController
   ) { }
+
+  ionViewWillEnter() {
+    this.animatePageSlide();
+  }
+
+  animatePageSlide() {
+    const headerEl = document.querySelector('app-form ion-header') as HTMLElement;
+    const contentEl = document.querySelector('app-form ion-content') as HTMLElement;
+
+    if (headerEl && contentEl) {
+      const animation = this.animationCtrl
+        .create()                                                  // membuat instance animasi baru
+        .addElement([headerEl, contentEl])                         // elemen header dan konten bergerak bersamaan
+        .duration(250)                                             // durasi animasi (ms)
+        .easing('ease-out')                                        // kurva transisi animasi (cepat di awal, melambat halus di akhir)
+        .fromTo('transform', 'translateX(100%)', 'translateX(0%)') // geser posisi dari kanan luar layar (100%) ke posisi normal (0%)
+        .fromTo('opacity', '0', '1');                              // mengubah transparansi dari tidak terlihat (0) menjadi penuh (1)
+
+      animation.play();
+    }
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -114,8 +137,8 @@ export class FormPage implements OnInit {
     }
 
     // Jika URL foto kosong, gunakan gambar placeholder default
-    const fotoUrl = (this.url && this.url.trim() !== '') 
-      ? this.url.trim() 
+    const fotoUrl = (this.url && this.url.trim() !== '')
+      ? this.url.trim()
       : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png';
 
     // Simpan ke service
