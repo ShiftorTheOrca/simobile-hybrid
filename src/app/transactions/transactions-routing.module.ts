@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: TransactionsPage
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then(m => m.CartPageModule)
+  },
+  {
+    path: 'detail/:id_transaksi',
+    loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
   }
 ];
 
