@@ -1,0 +1,20 @@
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-item {
+  margin-top: 12px;
+  border-top: 1px dashed var(--ion-color-step-300, #ccc);
+  padding-top: 8px;
+}
+
+.not-found-state {
+  margin-top: 60px;
+}
+
+.not-found-icon {
+  font-size: 64px;
+  color: var(--ion-color-danger);
+}
