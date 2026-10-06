@@ -45,7 +45,7 @@
           </ion-item>
 
           <ion-button routerLink="details/{{p.id_product}}">See Details</ion-button>
-          <ion-button color="danger">[TO DO] Add to Card</ion-button>
+          <ion-button color="danger" (click)="addToCart(p)">Add to Cart</ion-button>
 
         </ion-list>
       </div>
