@@ -128,14 +128,31 @@ export class Transaksi {
         return null;
     }
 
+    getRiwayat() { // salinan list transaksi, diurutkan dari yang terbaru
+        return this.transaksi.slice().sort((a, b) => b.tanggal.getTime() - a.tanggal.getTime());
+    }
+
     bayar() {
+        // salin item cart ke array baru, biar transaksi tidak ikut berubah waktu cart dikosongkan
+        let cart = this.cartService.cart;
+        let items = [];
+        for (let i = 0; i < cart.length; i++) {
+            items.push({
+                id_product: cart[i].id_product,
+                name: cart[i].name,
+                harga: cart[i].harga,
+                jumlah: cart[i].jumlah
+            });
+        }
+        let id_baru = "" + (this.transaksi.length + 1);
         this.addTransaksi(
-            "" + (this.transaksi.length + 1),
+            id_baru,
             new Date(),
-            this.cart,
+            items,
             this.cartService.hitungTotalCart()
         );
         this.cartService.empty();
+        return id_baru;
     }
     totalTransaksiToday() {
         let currentDate = new Date();
