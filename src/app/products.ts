@@ -119,11 +119,6 @@ export class Products {
     placeholder = "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png"
     addProduct(p_id: string, p_name: string, p_category: string,
         p_description: string, p_buy: number, p_price: number, p_stock: number, p_url: string) {
-            if (p_url.trim() !== '') {
-                p_url = p_url.trim();
-            } else {
-                p_url = this.placeholder;
-            }
             this.products.push({
             id_product: p_id,
             name: p_name,
@@ -140,13 +135,6 @@ export class Products {
 
         const index = this.products.findIndex(p => p.id_product == p_id);
         if (index == -1) return false; // id tidak ditemukan
-
-        if (p_url.trim() !== '') {
-                p_url = p_url.trim();
-            } else {
-                p_url = this.placeholder;
-            }
-
         this.products[index] = {
             id_product: p_id,
             name: p_name,
