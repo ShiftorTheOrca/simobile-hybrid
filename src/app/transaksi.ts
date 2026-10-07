@@ -1,17 +1,28 @@
-import { inject, Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Keranjang } from './keranjang';
 import { Products } from './products';
-@Service()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class Transaksi {
-    private productService = inject(Products);
-    private cartService = inject(Keranjang);
-    cart = this.cartService.cart
-    products = this.productService.products
+  constructor(
+    public productService: Products,
+    public cartService: Keranjang
+  ) {}
+
+  get cart() {
+    return this.cartService.cart;
+  }
+
+  get products() {
+    return this.productService.products;
+  }
 
     transaksi = [
         {
             id_transaksi: "1",
-            tanggal: new Date(2026, 9, 5, 10, 15),
+            tanggal: new Date(),
             items: [
                 { id_product: "1", name: "Banoffee Original", harga: 30000, jumlah: 2 },
                 { id_product: "9", name: "teh", harga: 10000, jumlah: 2 }
@@ -128,22 +139,40 @@ export class Transaksi {
         return null;
     }
 
+    getRiwayat() { // salinan list transaksi, diurutkan dari yang terbaru
+        return this.transaksi.slice().sort((a, b) => new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime());
+    }
+
     bayar() {
+        // salin item cart ke array baru, biar transaksi tidak ikut berubah waktu cart dikosongkan
+        let cart = this.cartService.cart;
+        let items = [];
+        for (let i = 0; i < cart.length; i++) {
+            items.push({
+                id_product: cart[i].id_product,
+                name: cart[i].name,
+                harga: cart[i].harga,
+                jumlah: cart[i].jumlah
+            });
+        }
+        let id_baru = "" + (this.transaksi.length + 1);
         this.addTransaksi(
-            "" + (this.transaksi.length + 1),
+            id_baru,
             new Date(),
-            this.cart,
+            items,
             this.cartService.hitungTotalCart()
         );
         this.cartService.empty();
+        return id_baru;
     }
     totalTransaksiToday() {
         let currentDate = new Date();
         let totalTransaksi = 0;
         for(let i = 0; i<this.transaksi.length;i++){
-            if (currentDate.getDate() == this.transaksi[i].tanggal.getDate()
-                && currentDate.getMonth() == this.transaksi[i].tanggal.getMonth()
-                && currentDate.getFullYear() == this.transaksi[i].tanggal.getFullYear()
+            let tDate = new Date(this.transaksi[i].tanggal);
+            if (currentDate.getDate() == tDate.getDate()
+                && currentDate.getMonth() == tDate.getMonth()
+                && currentDate.getFullYear() == tDate.getFullYear()
             ){
                 totalTransaksi ++;
             }

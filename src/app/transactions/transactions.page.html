@@ -4,14 +4,47 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>Transactions</ion-title>
+    <ion-title>Riwayat Transaksi</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/cart">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="totalItemCart > 0">{{ totalItemCart }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">transactions</ion-title>
+      <ion-title size="large">Riwayat Transaksi</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list *ngIf="daftarTransaksi.length == 0">
+    <ion-item>
+      <ion-label class="ion-text-center">
+        <h2>Belum Ada Transaksi</h2>
+        <p>Semua transaksi yang berhasil akan tercatat di sini.</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list id="transactionList" *ngIf="daftarTransaksi.length > 0">
+    <ion-card *ngFor="let t of daftarTransaksi" button="true" [routerLink]="['/transactions/detail', t.id_transaksi]">
+      <ion-card-header>
+        <ion-card-title>Transaksi #{{ t.id_transaksi }}</ion-card-title>
+        <ion-card-subtitle>{{ t.tanggal | date:'dd MMM yyyy, HH:mm' }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        Jumlah Produk: {{ t.items.length }}<br>
+        Total: Rp {{ t.total | number }}<br>
+        <ion-button [routerLink]="['/transactions/detail', t.id_transaksi]" class="ion-margin-top">
+          Detail Transaksi
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

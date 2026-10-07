@@ -1,0 +1,96 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/products"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Keranjang Belanja</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Keranjang Belanja</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Tampilan jika keranjang kosong -->
+  <ion-list *ngIf="cart.length == 0">
+    <ion-item>
+      <ion-label class="ion-text-center">
+        <h2>Keranjang Belanja Kosong</h2>
+        <p>Belum ada produk yang ditambahkan ke keranjang belanja.</p>
+      </ion-label>
+    </ion-item>
+    <div class="ion-padding">
+      <ion-button routerLink="/products" expand="block" fill="outline">
+        Lihat Katalog Produk
+      </ion-button>
+    </div>
+  </ion-list>
+
+  <!-- Tampilan jika keranjang memiliki item -->
+  <div *ngIf="cart.length > 0">
+    <ion-list lines="full">
+      <ion-item-sliding *ngFor="let item of cart">
+        <ion-item>
+          <ion-label>
+            <h2>{{ item.name }}</h2>
+            <p>Harga: Rp {{ item.harga | number }}</p>
+            <p>Subtotal: Rp {{ hitungSubtotal(item) | number }}</p>
+          </ion-label>
+
+          <!-- Tombol - / Jumlah / + dan Hapus -->
+          <ion-button size="small" fill="outline" (click)="kurang(item.id_product)">
+            <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-text class="ion-padding-horizontal">
+            {{ item.jumlah }}
+          </ion-text>
+          <ion-button size="small" fill="outline" (click)="tambah(item.id_product)" [disabled]="isMaxStok(item.id_product, item.jumlah)">
+            <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button size="small" color="danger" (click)="hapus(item.id_product)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="hapus(item.id_product)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!-- Ringkasan Checkout -->
+    <ion-list>
+      <ion-card id="cartSummaryCard">
+        <ion-card-header>
+          <ion-card-title>Ringkasan Belanja</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Total Belanja: Rp {{ hitungTotal() | number }}<br>
+
+          <ion-button
+            id="btn-konfirmasi"
+            expand="block"
+            color="primary"
+            class="ion-margin-top"
+            (click)="konfirmasi()"
+          >
+            Konfirmasi Transaksi
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
+
+  <ion-alert
+    [isOpen]="isAlertOpen"
+    header="Informasi"
+    message="Transaksi berhasil disimpan!"
+    [buttons]="alertButtons"
+    (didDismiss)="onAlertDismiss()"
+  ></ion-alert>
+</ion-content>

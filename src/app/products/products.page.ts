@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
 import { Products } from '../products';
+import { Keranjang } from '../keranjang';
 
 @Component({
   selector: 'app-products',
@@ -12,10 +13,16 @@ export class ProductsPage implements OnInit {
 
   keywordSearch: string = "";
   productList: any[] = [];
-  constructor(private objProduct: Products, private animationCtrl: AnimationController) { }
+  constructor(
+    private objProduct: Products, private keranjangService: Keranjang, private animationCtrl: AnimationController
+  ) { }
 
   ngOnInit() {
     this.productList = this.objProduct.products;
+  }
+
+  ionViewWillEnter() {
+    this.searchProducts();
   }
 
   // Lifecycle hook Ionic: Dipanggil otomatis setelah halaman produk tampil di layar
@@ -45,10 +52,16 @@ export class ProductsPage implements OnInit {
   }
 
   searchProducts() {
-    // dari AI
     this.productList = this.objProduct.products.filter(
-      // list produk = cari produk dgn nama yang mengandung [x] dari list utama (lower case biar ga case-sensitive)
       product_filtered => product_filtered.name.toLowerCase().includes(this.keywordSearch.toLowerCase())
     );
+  }
+
+  addToCart(p: any) {
+    this.keranjangService.AddCart(p.id_product, p.name, p.sale_price, 1);
+  }
+
+  get totalItemCart(): number {
+    return this.keranjangService.hitungJumlahItem();
   }
 }
