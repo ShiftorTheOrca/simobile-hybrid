@@ -3,21 +3,21 @@ import { Keranjang } from './keranjang';
 import { Products } from './products';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class Transaksi {
-  constructor(
-    public productService: Products,
-    public cartService: Keranjang
-  ) {}
+    constructor(
+        public productService: Products,
+        public cartService: Keranjang
+    ) { }
 
-  get cart() {
-    return this.cartService.cart;
-  }
+    get cart() {
+        return this.cartService.cart;
+    }
 
-  get products() {
-    return this.productService.products;
-  }
+    get products() {
+        return this.productService.products;
+    }
 
     transaksi = [
         {
@@ -139,12 +139,11 @@ export class Transaksi {
         return null;
     }
 
-    getRiwayat() { // salinan list transaksi, diurutkan dari yang terbaru
+    getRiwayat() {
         return this.transaksi.slice().sort((a, b) => new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime());
     }
 
     bayar() {
-        // salin item cart ke array baru, biar transaksi tidak ikut berubah waktu cart dikosongkan
         let cart = this.cartService.cart;
         let items = [];
         for (let i = 0; i < cart.length; i++) {
@@ -168,49 +167,49 @@ export class Transaksi {
     totalTransaksiToday() {
         let currentDate = new Date();
         let totalTransaksi = 0;
-        for(let i = 0; i<this.transaksi.length;i++){
+        for (let i = 0; i < this.transaksi.length; i++) {
             let tDate = new Date(this.transaksi[i].tanggal);
             if (currentDate.getDate() == tDate.getDate()
                 && currentDate.getMonth() == tDate.getMonth()
                 && currentDate.getFullYear() == tDate.getFullYear()
-            ){
-                totalTransaksi ++;
+            ) {
+                totalTransaksi++;
             }
         }
         return totalTransaksi;
     }
 
     produkTerlaris() { // kalo pakai DB tinggal group by, ini mbuat list produk baru lagi, cek item dalam tiap transaksi, terus update list produk(push / update qty)
-    let penjualan: { id_product: string, name: string, jumlah: number }[] = [];
-    for (let i = 0; i < this.transaksi.length; i++) {
-        for (let j = 0; j < this.transaksi[i].items.length; j++) {
-            let item = this.transaksi[i].items[j];
-            let ketemu = false;
+        let penjualan: { id_product: string, name: string, jumlah: number }[] = [];
+        for (let i = 0; i < this.transaksi.length; i++) {
+            for (let j = 0; j < this.transaksi[i].items.length; j++) {
+                let item = this.transaksi[i].items[j];
+                let ketemu = false;
 
-            for (let k = 0; k < penjualan.length; k++) {
-                if (penjualan[k].id_product == item.id_product) {
-                    penjualan[k].jumlah += item.jumlah;
-                    ketemu = true;
+                for (let k = 0; k < penjualan.length; k++) {
+                    if (penjualan[k].id_product == item.id_product) {
+                        penjualan[k].jumlah += item.jumlah;
+                        ketemu = true;
+                    }
+                }
+
+                if (!ketemu) {
+                    penjualan.push({
+                        id_product: item.id_product,
+                        name: item.name,
+                        jumlah: item.jumlah
+                    });
                 }
             }
+        }
 
-            if (!ketemu) {
-                penjualan.push({
-                    id_product: item.id_product,
-                    name: item.name,
-                    jumlah: item.jumlah
-                });
+        let terlaris = penjualan[0]; // langsung set di produk 0 biar langsung cek [1]
+        for (let i = 1; i < penjualan.length; i++) {
+            if (penjualan[i].jumlah > terlaris.jumlah) {
+                terlaris = penjualan[i];
             }
         }
-    }
 
-    let terlaris = penjualan[0]; // langsung set di produk 0 biar langsung cek [1]
-    for (let i = 1; i < penjualan.length; i++) {
-        if (penjualan[i].jumlah > terlaris.jumlah) {
-            terlaris = penjualan[i];
-        }
+        return terlaris; //dalam bentuk {id,nama,jumlah}
     }
-
-    return terlaris; //dalam bentuk {id,nama,jumlah}
-}
 }

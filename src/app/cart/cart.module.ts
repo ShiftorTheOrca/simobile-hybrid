@@ -17,4 +17,4 @@ import { CartPage } from './cart.page';
   ],
   declarations: [CartPage]
 })
-export class CartPageModule {}
+export class CartPageModule { }

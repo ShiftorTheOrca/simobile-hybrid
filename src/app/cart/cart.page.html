@@ -14,7 +14,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Tampilan jika keranjang kosong -->
+  <!-- keranjang kosong -->
   <ion-list *ngIf="cart.length == 0">
     <ion-item>
       <ion-label class="ion-text-center">
@@ -29,7 +29,7 @@
     </div>
   </ion-list>
 
-  <!-- Tampilan jika keranjang memiliki item -->
+  <!-- keranjang -->
   <div *ngIf="cart.length > 0">
     <ion-list lines="full">
       <ion-item-sliding *ngFor="let item of cart">
@@ -40,14 +40,14 @@
             <p>Subtotal: Rp {{ hitungSubtotal(item) | number }}</p>
           </ion-label>
 
-          <!-- Tombol - / Jumlah / + dan Hapus -->
           <ion-button size="small" fill="outline" (click)="kurang(item.id_product)">
             <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
           </ion-button>
           <ion-text class="ion-padding-horizontal">
             {{ item.jumlah }}
           </ion-text>
-          <ion-button size="small" fill="outline" (click)="tambah(item.id_product)" [disabled]="isMaxStok(item.id_product, item.jumlah)">
+          <ion-button size="small" fill="outline" (click)="tambah(item.id_product)"
+            [disabled]="isMaxStok(item.id_product, item.jumlah)">
             <ion-icon name="add-outline" slot="icon-only"></ion-icon>
           </ion-button>
           <ion-button size="small" color="danger" (click)="hapus(item.id_product)">
@@ -63,7 +63,7 @@
       </ion-item-sliding>
     </ion-list>
 
-    <!-- Ringkasan Checkout -->
+    <!-- Checkout -->
     <ion-list>
       <ion-card id="cartSummaryCard">
         <ion-card-header>
@@ -72,13 +72,7 @@
         <ion-card-content>
           Total Belanja: Rp {{ hitungTotal() | number }}<br>
 
-          <ion-button
-            id="btn-konfirmasi"
-            expand="block"
-            color="primary"
-            class="ion-margin-top"
-            (click)="konfirmasi()"
-          >
+          <ion-button id="btn-konfirmasi" expand="block" color="primary" class="ion-margin-top" (click)="konfirmasi()">
             Konfirmasi Transaksi
           </ion-button>
         </ion-card-content>
@@ -86,11 +80,6 @@
     </ion-list>
   </div>
 
-  <ion-alert
-    [isOpen]="isAlertOpen"
-    header="Informasi"
-    message="Transaksi berhasil disimpan!"
-    [buttons]="alertButtons"
-    (didDismiss)="onAlertDismiss()"
-  ></ion-alert>
+  <ion-alert [isOpen]="isAlertOpen" header="Informasi" message="Transaksi berhasil disimpan!" [buttons]="alertButtons"
+    (didDismiss)="onAlertDismiss()"></ion-alert>
 </ion-content>
