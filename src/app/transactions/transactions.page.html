@@ -7,9 +7,10 @@
     <ion-title>Riwayat Transaksi</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button routerLink="/cart">
-        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-        <ion-badge color="danger" *ngIf="totalItemCart > 0">{{ totalItemCart }}</ion-badge>
+      <ion-button routerLink="/cart" fill="solid" color="secondary" shape="round">
+        <ion-icon name="cart" slot="start"></ion-icon>
+        Keranjang
+        <ion-badge color="danger" *ngIf="totalItemCart > 0" class="ion-margin-start">{{ totalItemCart }}</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
