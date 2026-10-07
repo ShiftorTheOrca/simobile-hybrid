@@ -11,6 +11,7 @@ import { Keranjang } from '../keranjang';
 })
 export class ProductsPage implements OnInit {
 
+
   keywordSearch: string = "";
   productList: any[] = [];
   constructor(private objProduct: Products, private keranjangService: Keranjang, private animationCtrl: AnimationController) { }
