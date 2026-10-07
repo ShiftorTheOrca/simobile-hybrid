@@ -14,55 +14,60 @@
     </ion-toolbar>
   </ion-header>
 
-  <div *ngIf="transaksi; else notFound" class="ion-padding">
-    <ion-card>
-      <ion-card-header>
-        <div class="detail-header">
+  <div *ngIf="transaksi; else notFound">
+    <ion-list>
+      <ion-card id="detailTransactionCard">
+        <ion-card-header>
           <ion-card-title>Transaksi #{{ transaksi.id_transaksi }}</ion-card-title>
-          <ion-badge color="success">Sukses</ion-badge>
-        </div>
-        <ion-card-subtitle>
-          {{ transaksi.tanggal | date:'dd MMMM yyyy, HH:mm' }}
-        </ion-card-subtitle>
-      </ion-card-header>
+          <ion-card-subtitle>{{ transaksi.tanggal | date:'dd MMMM yyyy, HH:mm' }}</ion-card-subtitle>
+        </ion-card-header>
 
-      <ion-card-content>
-        <ion-list lines="full">
-          <ion-list-header>
-            <ion-label><strong>Daftar Pembelian</strong></ion-label>
-          </ion-list-header>
+        <ion-card-content>
+          Status: Selesai<br>
+          Total: Rp {{ transaksi.total | number }}
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
 
-          <ion-item *ngFor="let item of transaksi.items">
-            <ion-label>
-              <h3><strong>{{ item.name }}</strong></h3>
-              <p>Rp {{ item.harga | number }} &times; {{ item.jumlah }}</p>
-            </ion-label>
-            <ion-note slot="end" color="primary">
-              <strong>Rp {{ (item.harga * item.jumlah) | number }}</strong>
-            </ion-note>
-          </ion-item>
+    <ion-list lines="full">
+      <ion-list-header>
+        <ion-label>Daftar Pembelian</ion-label>
+      </ion-list-header>
 
-          <ion-item lines="none" class="total-item">
-            <ion-label>
-              <h2><strong>Total Pembayaran</strong></h2>
-            </ion-label>
-            <ion-note slot="end" color="success">
-              <h2><strong>Rp {{ transaksi.total | number }}</strong></h2>
-            </ion-note>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
+      <ion-item *ngFor="let item of transaksi.items">
+        <ion-label>
+          <h3>{{ item.name }}</h3>
+          <p>Rp {{ item.harga | number }} &times; {{ item.jumlah }}</p>
+        </ion-label>
+        <ion-note slot="end" color="primary">
+          Rp {{ (item.harga * item.jumlah) | number }}
+        </ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Total Pembayaran</h3>
+        </ion-label>
+        <ion-note slot="end" color="primary">
+          Rp {{ transaksi.total | number }}
+        </ion-note>
+      </ion-item>
+    </ion-list>
   </div>
 
   <ng-template #notFound>
-    <div class="ion-text-center ion-padding not-found-state">
-      <ion-icon name="alert-circle-outline" class="not-found-icon"></ion-icon>
-      <h3>Transaksi Tidak Ditemukan</h3>
-      <p>Data transaksi dengan ID #{{ id_transaksi }} tidak ditemukan di sistem.</p>
-      <ion-button routerLink="/transactions" expand="block" fill="outline">
-        Kembali ke Riwayat
-      </ion-button>
-    </div>
+    <ion-list>
+      <ion-item>
+        <ion-label class="ion-text-center">
+          <h3>Transaksi Tidak Ditemukan</h3>
+          <p>Data transaksi dengan ID #{{ id_transaksi }} tidak ditemukan.</p>
+        </ion-label>
+      </ion-item>
+      <div class="ion-padding">
+        <ion-button routerLink="/transactions" expand="block" fill="outline">
+          Kembali ke Riwayat
+        </ion-button>
+      </div>
+    </ion-list>
   </ng-template>
 </ion-content>

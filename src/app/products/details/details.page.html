@@ -16,7 +16,7 @@
 
   <ion-list>
     <ion-card id="detailCard">
-      <img src="{{display_product.url}}" style="height: 480px;" />
+      <img [src]="display_product?.url ? display_product.url : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png'" style="height: 480px;" />
       <ion-card-header>
         <ion-card-title>{{display_product.name}}</ion-card-title>
         <ion-card-subtitle>{{display_product.category}}</ion-card-subtitle>

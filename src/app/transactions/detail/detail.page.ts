@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AnimationController } from '@ionic/angular';
 import { Transaksi } from '../../transaksi';
 
 @Component({
@@ -14,7 +15,8 @@ export class DetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private transaksiService: Transaksi
+    private transaksiService: Transaksi,
+    private animationCtrl: AnimationController
   ) { }
 
   ngOnInit() {
@@ -22,5 +24,25 @@ export class DetailPage implements OnInit {
       this.id_transaksi = params['id_transaksi'];
       this.transaksi = this.transaksiService.getTransaksiById(this.id_transaksi);
     });
+  }
+
+  ionViewWillEnter() {
+    this.animateCard();
+  }
+
+  animateCard() {
+    const cardEl = document.querySelector('#detailTransactionCard') as HTMLElement;
+    if (cardEl) {
+      const animation = this.animationCtrl
+        .create()
+        .addElement(cardEl)
+        .duration(450)
+        .easing('ease-out')
+        .keyframes([
+          { offset: 0, opacity: '0', transform: 'translateY(30px)' },
+          { offset: 1, opacity: '1', transform: 'translateY(0px)' }
+        ]);
+      animation.play();
+    }
   }
 }
