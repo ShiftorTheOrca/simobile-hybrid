@@ -116,7 +116,6 @@ export class Products {
         // Tambahi lagi sampe minim 10
         // ws 10, info lek ada seng mau diganti
     ];
-    placeholder = "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png"
     addProduct(p_id: string, p_name: string, p_category: string,
         p_description: string, p_buy: number, p_price: number, p_stock: number, p_url: string) {
             this.products.push({
