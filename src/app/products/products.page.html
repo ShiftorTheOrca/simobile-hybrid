@@ -38,14 +38,6 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-list>
-
-          <ion-item *ngIf="p.url !=''">
-            <ion-img src="{{p.url}}" style="height: 360px;"></ion-img>
-          <ion-item>
-            <ion-img [src]="p.url ? p.url : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png'" style="height: 360px;"></ion-img>
-          </ion-item>
-                    <ion-item *ngIf="p.url ==''">
-            <ion-img src="https://katalog.nurasouvenir.com/assets/images/product-placeholder.png" style="height: 360px;"></ion-img>
           <ion-item>
             <ion-img [src]="p.url ? p.url : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png'" style="height: 360px;"></ion-img>
           </ion-item>
@@ -61,9 +53,9 @@
 
           <ion-button routerLink="details/{{p.id_product}}">See Details</ion-button>
           <ion-button color="secondary" fill="outline" routerLink="form/{{p.id_product}}">Edit</ion-button>
-          <ion-button *ngIf="p.stock > 0" color="danger" (click)="addToCart(p)">Add to Cart</ion-button>
-          <ion-button color="danger" [disabled]="p.stock <= 0">stok habis</ion-button>
-
+          <ion-button color="danger" [disabled]="p.stock <= 0" (click)="addToCart(p)">
+            {{ p.stock <= 0 ? 'Stok Habis' : 'Add to Cart' }}
+          </ion-button>
         </ion-list>
       </div>
     </ion-accordion>
