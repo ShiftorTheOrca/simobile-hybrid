@@ -8,10 +8,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">settings</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-list lines="full">
+    <!-- Pengaturan Mode Gelap / Terang -->
+    <ion-list-header>
+      <ion-label>Tampilan</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name="moon" slot="start" color="primary"></ion-icon>
+      <ion-toggle [(ngModel)]="isDarkMode" (ionChange)="toggleDarkMode()">Mode Gelap</ion-toggle>
+    </ion-item>
+  </ion-list>
 </ion-content>

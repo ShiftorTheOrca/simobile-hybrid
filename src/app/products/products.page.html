@@ -45,10 +45,18 @@
           </ion-item>
 
           <ion-button routerLink="details/{{p.id_product}}">See Details</ion-button>
+          <ion-button color="secondary" fill="outline" routerLink="form/{{p.id_product}}">Edit</ion-button>
           <ion-button color="danger" (click)="addToCart(p)">Add to Cart</ion-button>
 
         </ion-list>
       </div>
     </ion-accordion>
   </ion-accordion-group>
+
+  <!-- FAB Tambah Produk -->
+  <ion-fab id="fabAdd" slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink="/products/form">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

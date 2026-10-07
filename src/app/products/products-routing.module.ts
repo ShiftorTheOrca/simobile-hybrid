@@ -10,8 +10,13 @@ const routes: Routes = [
   },
   {
     path: 'details/:id_product',
-    loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
+    loadChildren: () => import('./details/details.module').then(m => m.DetailsPageModule)
+  },
+  {
+    path: 'form',
+    loadChildren: () => import('./form/form.module').then(m => m.FormPageModule)
   }
+
 
 ];
 
@@ -19,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProductsPageRoutingModule {}
+export class ProductsPageRoutingModule { }
