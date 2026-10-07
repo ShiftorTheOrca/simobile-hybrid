@@ -14,7 +14,13 @@ export class ProductsPage implements OnInit {
 
   keywordSearch: string = "";
   productList: any[] = [];
-  constructor(private objProduct: Products, private keranjangService: Keranjang, private animationCtrl: AnimationController) { }
+  amounts: { [id_product: string]: number } = {};
+
+  constructor(
+    private objProduct: Products,
+    public keranjangService: Keranjang,
+    private animationCtrl: AnimationController
+  ) { }
 
   ngOnInit() {
     this.productList = this.objProduct.products;
@@ -56,8 +62,48 @@ export class ProductsPage implements OnInit {
     );
   }
 
+  getAmount(id_product: string): number {
+    if (!this.amounts[id_product] || this.amounts[id_product] < 1) {
+      this.amounts[id_product] = 1;
+    }
+    return this.amounts[id_product];
+  }
+
+  tambahAmount(p: any) {
+    const sisa = this.getSisaStok(p);
+    const current = this.getAmount(p.id_product);
+    if (current < sisa) {
+      this.amounts[p.id_product] = current + 1;
+    }
+  }
+
+  kurangAmount(p: any) {
+    const current = this.getAmount(p.id_product);
+    if (current > 1) {
+      this.amounts[p.id_product] = current - 1;
+    }
+  }
+
+  getJumlahDiCart(id_product: string): number {
+    return this.keranjangService.getJumlahDiCart(id_product);
+  }
+
+  getSisaStok(p: any): number {
+    const diCart = this.getJumlahDiCart(p.id_product);
+    const sisa = p.stock - diCart;
+    return sisa > 0 ? sisa : 0;
+  }
+
+  isMaxCart(p: any): boolean {
+    return p.stock <= 0 || this.getJumlahDiCart(p.id_product) >= p.stock;
+  }
+
   addToCart(p: any) {
-    this.keranjangService.AddCart(p.id_product, p.name, p.sale_price, 1);
+    const qty = this.getAmount(p.id_product);
+    if (qty > 0 && !this.isMaxCart(p)) {
+      this.keranjangService.AddCart(p.id_product, p.name, p.sale_price, qty);
+      this.amounts[p.id_product] = 1;
+    }
   }
 
   get totalItemCart(): number {

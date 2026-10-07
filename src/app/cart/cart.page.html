@@ -38,6 +38,9 @@
             <h2>{{ item.name }}</h2>
             <p>Harga: Rp {{ item.harga | number }}</p>
             <p>Subtotal: Rp {{ hitungSubtotal(item) | number }}</p>
+            <p *ngIf="isMaxStok(item.id_product, item.jumlah)">
+              <ion-text color="danger"><small>Mencapai batas stok</small></ion-text>
+            </p>
           </ion-label>
 
           <ion-button size="small" fill="outline" (click)="kurang(item.id_product)">

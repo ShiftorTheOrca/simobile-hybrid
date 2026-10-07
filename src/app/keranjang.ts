@@ -73,6 +73,15 @@ export class Keranjang {
         return this.productService.products;
     }
 
+    getJumlahDiCart(p_id: string): number {
+        for (let i = 0; i < this.cart.length; i++) {
+            if (this.cart[i].id_product == p_id) {
+                return this.cart[i].jumlah;
+            }
+        }
+        return 0;
+    }
+
     AddCart(p_id: string, p_name: string, p_price: number, qty: number) {
         const prod = this.productService.products.find(p => p.id_product == p_id);
         const maxStok = prod ? prod.stock : 999;
@@ -80,12 +89,15 @@ export class Keranjang {
             if (this.cart[i].id_product == p_id) {
                 if (this.cart[i].jumlah + qty <= maxStok) {
                     this.cart[i].jumlah += qty;
+                } else {
+                    this.cart[i].jumlah = maxStok;
                 }
                 return;
             }
         }
-        if (qty <= maxStok) {
-            this.cart.push({ id_product: p_id, name: p_name, harga: p_price, jumlah: qty });
+        const initialQty = qty <= maxStok ? qty : maxStok;
+        if (initialQty > 0) {
+            this.cart.push({ id_product: p_id, name: p_name, harga: p_price, jumlah: initialQty });
         }
     }
     tambahJumlah(p_id: string) {
