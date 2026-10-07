@@ -4,9 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class Products {
-    // TODO: Steve, ak sementara ws buat iki buat ngetes real-time search e
-    // TODO: Kalo ada perubahan, tolong di-sync mbe search e
-
     // TODO Steve: kategori tak ganti jadi makanan, minuman, sama dessert
     // sama kamu mau nama service ne kene pake inggris atau indo
 
@@ -109,15 +106,12 @@ export class Products {
             description: "banoffee gapake pisang, karamel, regal, tapi ditambahin air",
             purchase_price: 5670,
             sale_price: 12670,
-            stock: 67, //awokawok
+            stock: 67,
             url: "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png",
 
         }
-
-
-        // Tambahi lagi sampe minim 10
-        // ws 10, info lek ada seng mau diganti
     ];
+
     addProduct(p_id: string, p_name: string, p_category: string,
         p_description: string, p_buy: number, p_price: number, p_stock: number, p_url: string) {
             this.products.push({
@@ -131,6 +125,7 @@ export class Products {
             url: p_url 
         })
     }
+
     editProduct(p_id: string, p_name: string, p_category: string,
         p_description: string, p_buy: number, p_price: number, p_stock: number, p_url: string) {
 
@@ -148,12 +143,14 @@ export class Products {
         };
         return true;
     }
+
     kurangiStok(p_id:string,jumlah:number) { 
         const index = this.products.findIndex(p => p.id_product == p_id);
         if (index != -1)
             this.products[index].stock -= jumlah;
         
     }
+    
     tambahStok(p_id:string,jumlah:number) { 
         const index = this.products.findIndex(p => p.id_product == p_id);
         if (index != -1)

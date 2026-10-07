@@ -88,6 +88,7 @@ export class Keranjang {
             this.cart.push({ id_product: p_id, name: p_name, harga: p_price, jumlah: qty });
         }
     }
+
     tambahJumlah(p_id: string) {
         const prod = this.productService.products.find(p => p.id_product == p_id);
         const maxStok = prod ? prod.stock : 999;
@@ -99,6 +100,7 @@ export class Keranjang {
             }
         }
     }
+
     kurangiJumlah(p_id: string) {
         for (let i = 0; i < this.cart.length; i++) {
             if (this.cart[i].id_product == p_id) {
@@ -110,6 +112,7 @@ export class Keranjang {
             }
         }
     }
+
     hapusItem(p_id: string) {
         for (let i = 0; i < this.cart.length; i++) {
             if (this.cart[i].id_product == p_id) {
@@ -118,15 +121,18 @@ export class Keranjang {
             }
         }
     }
+
     empty() { //kalo transaksi jalan ini buat ngosongin cart sekalian ngurangi stok
         for (let i = 0; i < this.cart.length; i++) {
             this.productService.kurangiStok(this.cart[i].id_product, this.cart[i].jumlah)
         }
         this.cart.splice(0);
     }
+
     hitungSubtotal(item: { harga: number, jumlah: number }) {
         return item.harga * item.jumlah;
     }
+
     hitungJumlahItem() {
         let jumlah = 0;
         for (let i = 0; i < this.cart.length; i++) {
@@ -134,6 +140,7 @@ export class Keranjang {
         }
         return jumlah;
     }
+    
     hitungTotalCart() { //ngitung total dalem cart pake metode zaman purba
         let total = 0;
         for (let i = 0; i < this.cart.length; i++) {
