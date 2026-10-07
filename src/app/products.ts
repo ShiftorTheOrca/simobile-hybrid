@@ -1,6 +1,8 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-@Service()
+@Injectable({
+  providedIn: 'root'
+})
 export class Products {
     // TODO: Steve, ak sementara ws buat iki buat ngetes real-time search e
     // TODO: Kalo ada perubahan, tolong di-sync mbe search e

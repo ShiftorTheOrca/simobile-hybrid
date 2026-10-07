@@ -1,17 +1,28 @@
-import { inject, Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Keranjang } from './keranjang';
 import { Products } from './products';
-@Service()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class Transaksi {
-    private productService = inject(Products);
-    private cartService = inject(Keranjang);
-    cart = this.cartService.cart
-    products = this.productService.products
+  constructor(
+    public productService: Products,
+    public cartService: Keranjang
+  ) {}
+
+  get cart() {
+    return this.cartService.cart;
+  }
+
+  get products() {
+    return this.productService.products;
+  }
 
     transaksi = [
         {
             id_transaksi: "1",
-            tanggal: new Date(2026, 9, 5, 10, 15),
+            tanggal: new Date(),
             items: [
                 { id_product: "1", name: "Banoffee Original", harga: 30000, jumlah: 2 },
                 { id_product: "9", name: "teh", harga: 10000, jumlah: 2 }
@@ -129,7 +140,7 @@ export class Transaksi {
     }
 
     getRiwayat() { // salinan list transaksi, diurutkan dari yang terbaru
-        return this.transaksi.slice().sort((a, b) => b.tanggal.getTime() - a.tanggal.getTime());
+        return this.transaksi.slice().sort((a, b) => new Date(b.tanggal).getTime() - new Date(a.tanggal).getTime());
     }
 
     bayar() {
@@ -158,9 +169,10 @@ export class Transaksi {
         let currentDate = new Date();
         let totalTransaksi = 0;
         for(let i = 0; i<this.transaksi.length;i++){
-            if (currentDate.getDate() == this.transaksi[i].tanggal.getDate()
-                && currentDate.getMonth() == this.transaksi[i].tanggal.getMonth()
-                && currentDate.getFullYear() == this.transaksi[i].tanggal.getFullYear()
+            let tDate = new Date(this.transaksi[i].tanggal);
+            if (currentDate.getDate() == tDate.getDate()
+                && currentDate.getMonth() == tDate.getMonth()
+                && currentDate.getFullYear() == tDate.getFullYear()
             ){
                 totalTransaksi ++;
             }

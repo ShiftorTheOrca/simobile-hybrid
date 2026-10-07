@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationController } from '@ionic/angular';
-import { Keranjang } from '../../keranjang';
-import { Transaksi } from '../../transaksi';
+import { Keranjang } from '../keranjang';
+import { Transaksi } from '../transaksi';
 
 @Component({
   selector: 'app-cart',
@@ -12,17 +12,8 @@ import { Transaksi } from '../../transaksi';
 })
 export class CartPage implements OnInit {
   idBaru: string = '';
-
-  public alertButtons = [
-    {
-      text: 'OK',
-      handler: () => {
-        if (this.idBaru) {
-          this.router.navigate(['/transactions/detail', this.idBaru]);
-        }
-      }
-    }
-  ];
+  isAlertOpen: boolean = false;
+  alertButtons = ['OK'];
 
   constructor(
     public keranjangService: Keranjang,
@@ -55,7 +46,7 @@ export class CartPage implements OnInit {
   }
 
   isMaxStok(id_product: string, jumlah: number): boolean {
-    const prod = this.keranjangService.products.find(p => p.id_product === id_product);
+    const prod = this.keranjangService.products.find(p => p.id_product == id_product);
     return prod ? jumlah >= prod.stock : false;
   }
 
@@ -86,6 +77,14 @@ export class CartPage implements OnInit {
   konfirmasi() {
     if (this.cart.length > 0) {
       this.idBaru = this.transaksiService.bayar();
+      this.isAlertOpen = true;
+    }
+  }
+
+  onAlertDismiss() {
+    this.isAlertOpen = false;
+    if (this.idBaru) {
+      this.router.navigate(['/transactions/detail', this.idBaru]);
     }
   }
 }

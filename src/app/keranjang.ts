@@ -1,8 +1,11 @@
-import { inject, Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Products } from './products';
-@Service()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class Keranjang {
-    private productService = inject(Products);
+  constructor(public productService: Products) {}
     cart = [
     {
         id_product: "1",
@@ -21,9 +24,12 @@ export class Keranjang {
         name: "teh",
         harga: 10000,
         jumlah: 1
-    },
-];
-    products = this.productService.products;
+    }
+  ];
+
+  get products() {
+    return this.productService.products;
+  }
 
     AddCart(p_id: string,p_name:string,p_price:number, qty: number) {
         const prod = this.productService.products.find(p => p.id_product == p_id);

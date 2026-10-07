@@ -10,7 +10,8 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then(m => m.CartPageModule)
+    redirectTo: '/cart',
+    pathMatch: 'full'
   },
   {
     path: 'detail/:id_transaksi',

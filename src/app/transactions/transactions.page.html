@@ -7,7 +7,7 @@
     <ion-title>Riwayat Transaksi</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button routerLink="/transactions/cart">
+      <ion-button routerLink="/cart">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
         <ion-badge color="danger" *ngIf="totalItemCart > 0">{{ totalItemCart }}</ion-badge>
       </ion-button>
@@ -22,10 +22,10 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list *ngIf="daftarTransaksi.length === 0">
+  <ion-list *ngIf="daftarTransaksi.length == 0">
     <ion-item>
       <ion-label class="ion-text-center">
-        <h3>Belum Ada Transaksi</h3>
+        <h2>Belum Ada Transaksi</h2>
         <p>Semua transaksi yang berhasil akan tercatat di sini.</p>
       </ion-label>
     </ion-item>

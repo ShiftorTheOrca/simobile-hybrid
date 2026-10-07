@@ -36,7 +36,7 @@
 
       <ion-item *ngFor="let item of transaksi.items">
         <ion-label>
-          <h3>{{ item.name }}</h3>
+          <h2>{{ item.name }}</h2>
           <p>Rp {{ item.harga | number }} &times; {{ item.jumlah }}</p>
         </ion-label>
         <ion-note slot="end" color="primary">
@@ -46,7 +46,7 @@
 
       <ion-item>
         <ion-label>
-          <h3>Total Pembayaran</h3>
+          <h2>Total Pembayaran</h2>
         </ion-label>
         <ion-note slot="end" color="primary">
           Rp {{ transaksi.total | number }}
@@ -59,7 +59,7 @@
     <ion-list>
       <ion-item>
         <ion-label class="ion-text-center">
-          <h3>Transaksi Tidak Ditemukan</h3>
+          <h2>Transaksi Tidak Ditemukan</h2>
           <p>Data transaksi dengan ID #{{ id_transaksi }} tidak ditemukan.</p>
         </ion-label>
       </ion-item>

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/transactions"></ion-back-button>
+      <ion-back-button defaultHref="/products"></ion-back-button>
     </ion-buttons>
     <ion-title>Keranjang Belanja</ion-title>
   </ion-toolbar>
@@ -15,10 +15,10 @@
   </ion-header>
 
   <!-- Tampilan jika keranjang kosong -->
-  <ion-list *ngIf="cart.length === 0">
+  <ion-list *ngIf="cart.length == 0">
     <ion-item>
       <ion-label class="ion-text-center">
-        <h3>Keranjang Belanja Kosong</h3>
+        <h2>Keranjang Belanja Kosong</h2>
         <p>Belum ada produk yang ditambahkan ke keranjang belanja.</p>
       </ion-label>
     </ion-item>
@@ -78,19 +78,19 @@
             color="primary"
             class="ion-margin-top"
             (click)="konfirmasi()"
-            [disabled]="cart.length === 0"
           >
             Konfirmasi Transaksi
           </ion-button>
-
-          <ion-alert
-            trigger="btn-konfirmasi"
-            header="Informasi"
-            message="Transaksi berhasil disimpan!"
-            [buttons]="alertButtons"
-          ></ion-alert>
         </ion-card-content>
       </ion-card>
     </ion-list>
   </div>
+
+  <ion-alert
+    [isOpen]="isAlertOpen"
+    header="Informasi"
+    message="Transaksi berhasil disimpan!"
+    [buttons]="alertButtons"
+    (didDismiss)="onAlertDismiss()"
+  ></ion-alert>
 </ion-content>

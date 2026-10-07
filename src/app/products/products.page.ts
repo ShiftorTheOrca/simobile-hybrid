@@ -21,6 +21,10 @@ export class ProductsPage implements OnInit {
     this.productList = this.objProduct.products;
   }
 
+  ionViewWillEnter() {
+    this.searchProducts();
+  }
+
   // Lifecycle hook Ionic: Dipanggil otomatis setelah halaman produk tampil di layar
   ionViewDidEnter() {
     this.animateFab();
@@ -55,5 +59,9 @@ export class ProductsPage implements OnInit {
 
   addToCart(p: any) {
     this.keranjangService.AddCart(p.id_product, p.name, p.sale_price, 1);
+  }
+
+  get totalItemCart(): number {
+    return this.keranjangService.hitungJumlahItem();
   }
 }
