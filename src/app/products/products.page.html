@@ -26,8 +26,7 @@
   <!-- Search bar -->
   <ion-list lines="full">
     <ion-item>
-      <ion-input labelPlacement="floating" (keyup)="searchProducts()" label="Cari produk:"
-        [(ngModel)]="keywordSearch"></ion-input>
+      <ion-input labelPlacement="floating" label="Cari produk:" [(ngModel)]="keywordSearch"></ion-input>
     </ion-item>
   </ion-list>
 
@@ -40,7 +39,8 @@
       <div class="ion-padding" slot="content">
         <ion-list>
           <ion-item>
-            <ion-img [src]="p.url ? p.url : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png'" style="height: 360px;"></ion-img>
+            <ion-img [src]="p.url ? p.url : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png'"
+              style="height: 360px;"></ion-img>
           </ion-item>
           <ion-item>
             {{ p.description }}
@@ -66,7 +66,8 @@
             <ion-text class="ion-padding-horizontal">
               <b>{{ getAmount(p.id_product) }}</b>
             </ion-text>
-            <ion-button size="small" fill="outline" (click)="tambahAmount(p)" [disabled]="getAmount(p.id_product) >= getSisaStok(p)">
+            <ion-button size="small" fill="outline" (click)="tambahAmount(p)"
+              [disabled]="getAmount(p.id_product) >= getSisaStok(p)">
               <ion-icon name="add-outline" slot="icon-only"></ion-icon>
             </ion-button>
           </ion-item>
@@ -74,8 +75,8 @@
           <ion-button routerLink="details/{{p.id_product}}">See Details</ion-button>
           <ion-button color="secondary" fill="outline" routerLink="form/{{p.id_product}}">Edit</ion-button>
           <ion-button color="danger" [disabled]="isMaxCart(p)" (click)="addToCart(p)">
-            {{ isMaxCart(p) ? (p.stock <= 0 ? 'Stok Habis' : 'Maksimal di Keranjang') : 'Add to Cart (' + getAmount(p.id_product) + ')' }}
-          </ion-button>
+            {{ isMaxCart(p) ? (p.stock <= 0 ? 'Stok Habis' : 'Maksimal di Keranjang' ) : 'Add to Cart (' +
+              getAmount(p.id_product) + ')' }} </ion-button>
         </ion-list>
       </div>
     </ion-accordion>

@@ -13,8 +13,17 @@ export class ProductsPage implements OnInit {
 
 
   keywordSearch: string = "";
-  productList: any[] = [];
   amounts: { [id_product: string]: number } = {};
+
+  // Selalu mengambil array terbaru langsung dari service
+  get productList(): any[] {
+    if (!this.keywordSearch || this.keywordSearch.trim() === '') {
+      return this.objProduct.products;
+    }
+    return this.objProduct.products.filter(product_filtered =>
+      product_filtered.name.toLowerCase().includes(this.keywordSearch.toLowerCase())
+    );
+  }
 
   constructor(
     private objProduct: Products,
@@ -22,22 +31,15 @@ export class ProductsPage implements OnInit {
     private animationCtrl: AnimationController
   ) { }
 
-  ngOnInit() {
-    this.productList = this.objProduct.products;
-  }
+  ngOnInit() { }
 
-  ionViewWillEnter() {
-    this.searchProducts();
-  }
-
-  // Lifecycle hook Ionic: Dipanggil otomatis setelah halaman produk tampil di layar
+  // Dipanggil otomatis setelah halaman produk tampil di layar
   ionViewDidEnter() {
     this.animateFab();
   }
 
-  // Method animasi bounce/pop-up tombol FAB Tambah Produk
+  // animasi bounce/pop-up tombol FAB Tambah Produk
   animateFab() {
-    // 1. Mengambil elemen FAB berdasarkan ID #fabAdd
     const fabElement = document.querySelector('#fabAdd') as HTMLElement;
 
     if (fabElement) {
@@ -54,12 +56,6 @@ export class ProductsPage implements OnInit {
 
       animation.play();
     }
-  }
-
-  searchProducts() {
-    this.productList = this.objProduct.products.filter(
-      product_filtered => product_filtered.name.toLowerCase().includes(this.keywordSearch.toLowerCase())
-    );
   }
 
   getAmount(id_product: string): number {

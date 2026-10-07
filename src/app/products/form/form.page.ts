@@ -13,7 +13,7 @@ export class FormPage implements OnInit {
   isEdit: boolean = false;
   id_product: string = '';
 
-  // Data input form (Two-way data binding [(ngModel)])
+  // Data input form
   name: string = '';
   category: string = 'makanan';
   purchase_price: number | null = null;
