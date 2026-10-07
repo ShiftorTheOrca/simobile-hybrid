@@ -18,13 +18,33 @@
       <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-item>
-    <h3>Jumlah Produk: {{totalProduk}}</h3>
-  </ion-item>
-  <ion-item>
-    <h3>Total transaksi hari ini: {{totalTransaksiToday}}</h3>
-  </ion-item>
-  <ion-item>
-    <h3>Produk terlaris (all time): {{namaProdukTerlaris}}</h3>
+    <ion-card color="primary">
+      <ion-card-header>
+        <ion-card-title>Jumlah Produk:</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{totalProduk}}</h2>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="secondary">
+      <ion-card-header>
+        <ion-card-title>Total transaksi hari ini:</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{totalTransaksiToday}}</h2>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="primary">
+      <ion-card-header>
+        <ion-card-title>Produk terlaris (all time):</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{namaProdukTerlaris}}</h2>
+      </ion-card-content>
+    </ion-card>
   </ion-item>
 </ion-content>
