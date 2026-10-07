@@ -5,6 +5,13 @@
     </ion-buttons>
 
     <ion-title>Products</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/cart">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="totalItemCart > 0">{{ totalItemCart }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -31,8 +38,16 @@
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-list>
-          <ion-item>
+<<<<<<< HEAD
+          <ion-item *ngIf="p.url !=''">
             <ion-img src="{{p.url}}" style="height: 360px;"></ion-img>
+=======
+          <ion-item>
+            <ion-img [src]="p.url ? p.url : 'https://katalog.nurasouvenir.com/assets/images/product-placeholder.png'" style="height: 360px;"></ion-img>
+>>>>>>> 35aa9d36eb845750aff429d130799367ddd8c289
+          </ion-item>
+                    <ion-item *ngIf="p.url ==''">
+            <ion-img src="https://katalog.nurasouvenir.com/assets/images/product-placeholder.png" style="height: 360px;"></ion-img>
           </ion-item>
           <ion-item>
             {{ p.description }}
@@ -46,7 +61,12 @@
 
           <ion-button routerLink="details/{{p.id_product}}">See Details</ion-button>
           <ion-button color="secondary" fill="outline" routerLink="form/{{p.id_product}}">Edit</ion-button>
-          <ion-button color="danger" (click)="addToCart(p)">Add to Cart</ion-button>
+<<<<<<< HEAD
+          <ion-button *ngIf="p.stock > 0" color="danger" (click)="addToCart(p)">Add to Cart</ion-button>
+          <ion-button *ngIf="p.stock == 0" color="danger" [disabled]="true">stok habis</ion-button>
+=======
+          <ion-button color="danger" [disabled]="p.stock <= 0" (click)="addToCart(p)">Add to Cart</ion-button>
+>>>>>>> 35aa9d36eb845750aff429d130799367ddd8c289
 
         </ion-list>
       </div>

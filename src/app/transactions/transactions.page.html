@@ -7,7 +7,7 @@
     <ion-title>Riwayat Transaksi</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button routerLink="/transactions/cart">
+      <ion-button routerLink="/cart">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
         <ion-badge color="danger" *ngIf="totalItemCart > 0">{{ totalItemCart }}</ion-badge>
       </ion-button>
@@ -22,36 +22,29 @@
     </ion-toolbar>
   </ion-header>
 
-  <div *ngIf="daftarTransaksi.length === 0" class="ion-text-center ion-padding empty-state">
-    <ion-icon name="receipt-outline" class="empty-icon"></ion-icon>
-    <h3>Belum Ada Transaksi</h3>
-    <p>Semua transaksi yang berhasil akan tercatat di sini.</p>
-  </div>
+  <ion-list *ngIf="daftarTransaksi.length == 0">
+    <ion-item>
+      <ion-label class="ion-text-center">
+        <h2>Belum Ada Transaksi</h2>
+        <p>Semua transaksi yang berhasil akan tercatat di sini.</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
-  <div *ngIf="daftarTransaksi.length > 0" class="ion-padding-vertical">
-    <ion-card
-      *ngFor="let t of daftarTransaksi"
-      [routerLink]="['/transactions/detail', t.id_transaksi]"
-      button="true"
-      class="transaction-card"
-    >
+  <ion-list id="transactionList" *ngIf="daftarTransaksi.length > 0">
+    <ion-card *ngFor="let t of daftarTransaksi" button="true" [routerLink]="['/transactions/detail', t.id_transaksi]">
       <ion-card-header>
-        <div class="transaction-header">
-          <ion-card-title>Transaksi #{{ t.id_transaksi }}</ion-card-title>
-          <ion-badge color="success">Selesai</ion-badge>
-        </div>
+        <ion-card-title>Transaksi #{{ t.id_transaksi }}</ion-card-title>
         <ion-card-subtitle>{{ t.tanggal | date:'dd MMM yyyy, HH:mm' }}</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
-        <ion-item lines="none" class="ion-no-padding">
-          <ion-label>
-            <p>{{ t.items.length }} jenis produk</p>
-            <h3><strong>Total: Rp {{ t.total | number }}</strong></h3>
-          </ion-label>
-          <ion-icon name="chevron-forward-outline" slot="end" color="medium"></ion-icon>
-        </ion-item>
+        Jumlah Produk: {{ t.items.length }}<br>
+        Total: Rp {{ t.total | number }}<br>
+        <ion-button [routerLink]="['/transactions/detail', t.id_transaksi]" class="ion-margin-top">
+          Detail Transaksi
+        </ion-button>
       </ion-card-content>
     </ion-card>
-  </div>
+  </ion-list>
 </ion-content>

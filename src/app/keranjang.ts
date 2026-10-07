@@ -1,8 +1,11 @@
-import { inject, Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Products } from './products';
-@Service()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class Keranjang {
-    private productService = inject(Products);
+  constructor(public productService: Products) {}
     cart = [
     {
         id_product: "1",
@@ -21,24 +24,37 @@ export class Keranjang {
         name: "teh",
         harga: 10000,
         jumlah: 1
-    },
-];
-    products = this.productService.products;
+    }
+  ];
+
+  get products() {
+    return this.productService.products;
+  }
 
     AddCart(p_id: string,p_name:string,p_price:number, qty: number) {
-        // kalau produk sudah ada di cart, cukup tambah jumlahnya
+        const prod = this.productService.products.find(p => p.id_product == p_id);
+        const maxStok = prod ? prod.stock : 999;
+        // kalau produk sudah ada di cart, cukup tambah jumlahnya selama tidak melebihi stok
         for(let i = 0; i<this.cart.length;i++){
             if (this.cart[i].id_product == p_id) {
-                this.cart[i].jumlah += qty;
+                if (this.cart[i].jumlah + qty <= maxStok) {
+                    this.cart[i].jumlah += qty;
+                }
                 return;
             }
         }
-        this.cart.push({ id_product: p_id, name:p_name,harga:p_price, jumlah: qty });
+        if (qty <= maxStok) {
+            this.cart.push({ id_product: p_id, name:p_name,harga:p_price, jumlah: qty });
+        }
     }
     tambahJumlah(p_id: string) {
+        const prod = this.productService.products.find(p => p.id_product == p_id);
+        const maxStok = prod ? prod.stock : 999;
         for(let i = 0; i<this.cart.length;i++){
             if (this.cart[i].id_product == p_id) {
-                this.cart[i].jumlah++;
+                if (this.cart[i].jumlah < maxStok) {
+                    this.cart[i].jumlah++;
+                }
             }
         }
     }

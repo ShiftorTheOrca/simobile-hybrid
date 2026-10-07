@@ -1,6 +1,8 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-@Service()
+@Injectable({
+  providedIn: 'root'
+})
 export class Products {
     // TODO: Steve, ak sementara ws buat iki buat ngetes real-time search e
     // TODO: Kalo ada perubahan, tolong di-sync mbe search e
@@ -96,7 +98,7 @@ export class Products {
             description: "teh",
             purchase_price: 5000,
             sale_price: 10000,
-            stock: 70,
+            stock: 0,
             url: "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png",
 
         },
@@ -108,7 +110,7 @@ export class Products {
             purchase_price: 5670,
             sale_price: 12670,
             stock: 67, //awokawok
-            url: "https://katalog.nurasouvenir.com/assets/images/product-placeholder.png",
+            url: "",
 
         }
 

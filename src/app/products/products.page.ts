@@ -11,6 +11,7 @@ import { Keranjang } from '../keranjang';
 })
 export class ProductsPage implements OnInit {
 
+
   keywordSearch: string = "";
   productList: any[] = [];
   constructor(
@@ -19,6 +20,10 @@ export class ProductsPage implements OnInit {
 
   ngOnInit() {
     this.productList = this.objProduct.products;
+  }
+
+  ionViewWillEnter() {
+    this.searchProducts();
   }
 
   // Lifecycle hook Ionic: Dipanggil otomatis setelah halaman produk tampil di layar
@@ -48,14 +53,16 @@ export class ProductsPage implements OnInit {
   }
 
   searchProducts() {
-    // dari AI
     this.productList = this.objProduct.products.filter(
-      // list produk = cari produk dgn nama yang mengandung [x] dari list utama (lower case biar ga case-sensitive)
       product_filtered => product_filtered.name.toLowerCase().includes(this.keywordSearch.toLowerCase())
     );
   }
 
   addToCart(p: any) {
     this.keranjangService.AddCart(p.id_product, p.name, p.sale_price, 1);
+  }
+
+  get totalItemCart(): number {
+    return this.keranjangService.hitungJumlahItem();
   }
 }

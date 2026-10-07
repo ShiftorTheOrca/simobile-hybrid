@@ -25,12 +25,14 @@ export class DetailsPage implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id_product'];
 
-      // dari AI
       this.display_product = this.product_list.find(product => product.id_product == this.id);
     });
   }
 
   ionViewWillEnter() {
+    if (this.id) {
+      this.display_product = this.product_list.find(product => product.id_product == this.id);
+    }
     this.animatePageEnter();
   }
 
